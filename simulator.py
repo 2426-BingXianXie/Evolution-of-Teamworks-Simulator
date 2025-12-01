@@ -173,9 +173,11 @@ def plot_multiple_worlds(all_worlds, days):
     ax.fill_between(day_range, mean_solo, 1, 
                      color='#E05C5C', alpha=0.9, label='Team (Cooperation)')
     
-    # Overlay individual world trajectories (lines) in white
+    # FIXED: Overlay individual world trajectories showing the boundary between strategies
+    # The boundary is at solo_frequency height (from bottom)
     for world in all_worlds:
-        ax.plot(day_range, world, color='white', linewidth=1.2, alpha=0.7)
+        solo_freq = [1 - t for t in world]  # Convert teamwork freq to solo freq
+        ax.plot(day_range, solo_freq, color='white', linewidth=1.2, alpha=0.7)
     
     # Styling and Labels
     ax.set_xlabel('Day', fontsize=14, fontweight='bold', color='white')
